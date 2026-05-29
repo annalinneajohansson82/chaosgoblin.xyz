@@ -1,0 +1,64 @@
+@font-face {
+	font-family: "Stack Sans Notch";
+	src: url("/fonts/StackSansNotch-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Stack Sans Headline";
+	src: url("/fonts/StackSansHeadline-VariableFont_wght.ttf")
+		format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Stack Sans Text";
+	src: url("/fonts/StackSansText-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("/fonts/RobotoMono-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("/fonts/RobotoMono-Italic-VariableFont_wght.ttf")
+		format("truetype");
+	font-weight: 100 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+// ds.css defines --font-family-display, --font-family-ui, --font-family-code
+// as the family-level variables. The shorthand vars (--font-display, --font-body, etc.)
+// are composites that reference these.
+//
+// --font-body, --font-ui, --font-small all share --font-family-ui.
+// To use Stack Sans Text for body copy and Stack Sans Headline for ui/nav,
+// we override --font-family-ui to Headline and override the body shorthands directly.
+
+:root {
+	--font-family-display: "Stack Sans Notch", sans-serif;
+	--font-family-ui: "Stack Sans Headline", sans-serif;
+	--font-family-code: "Roboto Mono", monospace;
+	--font-family-headings: "Stack Sans Headline", sans-serif;
+
+	// Body copy uses Stack Sans Text, overriding the shared --font-family-ui
+	--font-body: clamp(1rem, 5vw, 1.125rem)/1.6 "Stack Sans Text", sans-serif;
+	--font-body-bold:
+		600 clamp(1rem, 5vw, 1.125rem)/1.6 "Stack Sans Text", sans-serif;
+	--font-small: clamp(0.85rem, 4vw, 0.9rem)/1.4 "Stack Sans Text", sans-serif;
+	--font-small-bold:
+		600 clamp(0.85rem, 4vw, 0.9rem)/1.4 "Stack Sans Text", sans-serif;
+}

@@ -1,0 +1,18 @@
+lang: en
+
+logo: '<img src="/chaos_inc.png" alt="chaosgoblin.xyz" class="site-logo">'
+
+home:
+  welcome:
+
+menu_links: []
+extra_head: []
+
+# Metas plugin https://lume.land/plugins/metas/#description
+metas:
+  site: chaosgoblin.xyz
+  description:
+  title: "=title"
+  image: "=image"
+  twitter: "@username"
+  lang: en
