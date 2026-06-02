@@ -6,7 +6,11 @@ home:
   welcome:
 
 menu_links: []
-extra_head: []
+extra_head:
+  - '<style>:root { --font-family-display: "Google Sans Flex", sans-serif; --font-family-ui: "Google Sans Flex", sans-serif; --font-family-code: "Google Sans Code", monospace; --font-family-headings: "Google Sans Flex", sans-serif; --font-body: clamp(1rem,5vw,1.125rem)/1.6 "Google Sans Flex", sans-serif; --font-body-bold: 600 clamp(1rem,5vw,1.125rem)/1.6 "Google Sans Flex", sans-serif; --font-small: clamp(0.85rem,4vw,0.9rem)/1.4 "Google Sans Flex", sans-serif; --font-small-bold: 600 clamp(0.85rem,4vw,0.9rem)/1.4 "Google Sans Flex", sans-serif; --font-extra-bold: 900; } .site-logo { height: 160px !important; width: auto; } [data-theme="dark"] .site-logo { filter: invert(1); } .post-title, .page-title { font-weight: var(--font-extra-bold); }</style>'
+  - '<link rel="preconnect" href="https://fonts.googleapis.com">'
+  - '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+  - '<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">'
 
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
