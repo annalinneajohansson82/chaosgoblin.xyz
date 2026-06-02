@@ -58,3 +58,7 @@ WCAG 2.2 Level AA. Core needs:
 - Reduced motion support for ADHD/sensory sensitivity
 - Keyboard navigation and screen reader support
 - Calm, non-overwhelming visual hierarchy (ADHD consideration)
+
+## Related
+
+- `DESIGN.md` — concrete design values (typography, color, logo, spacing). This file states *why*; `DESIGN.md` states *what*.
