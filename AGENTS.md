@@ -6,7 +6,7 @@ Personal blog and implicit portfolio. Lume static site, deployed at chaosgoblin.
 
 This project is small enough to keep all context in this single root file. There are no child `AGENTS.md` nodes.
 
-Before modifying any file, read the relevant section below. Before making design or content decisions, read `PRODUCT.md` (brand, audience, positioning, anti-references) and `docs/specs/` if the work touches theme mechanics.
+Before modifying any file, read the relevant section below. Before making design or content decisions, read `PRODUCT.md` (brand, audience, positioning, anti-references).
 
 ## What This Is
 
@@ -34,7 +34,6 @@ Before modifying any file, read the relevant section below. Before making design
 - `blog/pages/` — Static pages (e.g. `about.md`).
 - `blog/chaos_inc.png` — Logo. Dark mode inverts it via `filter: invert(1)`, not via a separate file.
 - `PRODUCT.md` — Brand identity, audience, positioning, anti-references, design principles. **Read this before making design or content decisions.**
-- `docs/specs/` — Project specs. May include outdated theme-setup notes from earlier experiments.
 
 ## Patterns
 
@@ -95,6 +94,5 @@ There are no automated tests. The site is verified by:
 ## Related Context
 
 - `PRODUCT.md` — read before any design or content decision.
-- `docs/specs/` — project specs (some may be stale from earlier theme experiments).
 - Lume docs: https://lume.land
 - Simple Blog theme: https://github.com/lumeland/theme-simple-blog
