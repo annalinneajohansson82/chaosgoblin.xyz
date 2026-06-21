@@ -14,9 +14,8 @@ blog/styles.scss
 blog/unocss.config.ts
 blog/_cms.ts
 
-# Fonts (downloaded)
+# Fonts (served from Google Fonts CDN)
 blog/fonts/
-fonts/
 
 # Editor and OS
 .DS_Store
