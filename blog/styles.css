@@ -1,3 +1,35 @@
+/* Theme CSS: Simple Blog ─────────────────────────────────────────────── */
+/* @lumeland/ds design system + component styles */
+@import url("https://unpkg.com/@lumeland/ds@0.5.2/ds.css");
+@import url("https://cdn.jsdelivr.net/gh/lumeland/theme-simple-blog@1.16.2/src/_includes/css/navbar.css");
+@import url("https://cdn.jsdelivr.net/gh/lumeland/theme-simple-blog@1.16.2/src/_includes/css/page.css");
+@import url("https://cdn.jsdelivr.net/gh/lumeland/theme-simple-blog@1.16.2/src/_includes/css/post-list.css");
+@import url("https://cdn.jsdelivr.net/gh/lumeland/theme-simple-blog@1.16.2/src/_includes/css/post.css");
+@import url("https://cdn.jsdelivr.net/gh/lumeland/theme-simple-blog@1.16.2/src/_includes/css/comments.css");
+
+/* Theme link colors */
+:root {
+  --color-link: var(--color-base);
+  --color-link-hover: var(--color-dim);
+}
+
+/* Theme page layout: centered narrow column */
+main {
+  padding: var(--row-gap-medium) 0;
+  max-width: min(100% - 15vw, 45em);
+  margin: 0 auto;
+}
+main > :first-child {
+  margin-top: 0;
+}
+
+/* Theme search tweak */
+.search {
+  margin-top: var(--row-gap-xsmall);
+}
+
+/* ───── Custom overrides ───── */
+
 /* typography ──────────────────────────────────────────────────────────── */
 
 :root {
