@@ -15,7 +15,10 @@ blog/unocss.config.ts
 blog/_cms.ts
 
 # Fonts (served from Google Fonts CDN)
-blog/fonts/
+fonts/
+
+# Screenshots (agent debugging artifacts)
+blog/uploads/screenshots/
 
 # Editor and OS
 .DS_Store
