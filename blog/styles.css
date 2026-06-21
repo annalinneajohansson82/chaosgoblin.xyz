@@ -1,0 +1,46 @@
+/* typography ──────────────────────────────────────────────────────────── */
+
+:root {
+  --font-family-display: "Google Sans Flex", sans-serif;
+  --font-family-ui: "Google Sans Flex", sans-serif;
+  --font-family-code: "Google Sans Code", monospace;
+  --font-family-headings: "Google Sans Flex", sans-serif;
+  --font-body: clamp(1rem, 5vw, 1.125rem) / 1.6 "Google Sans Flex", sans-serif;
+  --font-body-bold: 600 clamp(1rem, 5vw, 1.125rem) / 1.6 "Google Sans Flex", sans-serif;
+  --font-small: clamp(0.85rem, 4vw, 0.9rem) / 1.4 "Google Sans Flex", sans-serif;
+  --font-small-bold: 600 clamp(0.85rem, 4vw, 0.9rem) / 1.4 "Google Sans Flex", sans-serif;
+  --font-extra-bold: 900;
+}
+
+/* logo ────────────────────────────────────────────────────────────────── */
+
+.site-logo {
+  height: 160px !important;
+  width: auto;
+}
+
+[data-theme="dark"] .site-logo {
+  filter: invert(1);
+}
+
+/* hierarchy ───────────────────────────────────────────────────────────── */
+
+.post-title,
+.page-title {
+  font-weight: var(--font-extra-bold);
+}
+
+/* about gallery ───────────────────────────────────────────────────────── */
+
+.about-gallery {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.about-thumb {
+  height: 120px;
+  width: auto;
+  object-fit: cover;
+}

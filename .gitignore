@@ -1,0 +1,36 @@
+# Build output
+_site/
+
+# Tooling/agent cruft
+.agents/
+.claude/
+.fallow/
+handoffs/
+skills-lock.json
+
+# Old build pipeline noise
+blog/styles/
+blog/styles.scss
+blog/unocss.config.ts
+blog/_cms.ts
+
+# Fonts (downloaded)
+blog/fonts/
+fonts/
+
+# Editor and OS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Docs: only explicitly listed files are tracked
+docs/**
+!docs/PRODUCT.md
+!docs/DESIGN.md
+!docs/CONTEXT.md
+!docs/DEPLOY.md
+!docs/content-strategy.md

@@ -1,0 +1,15 @@
+---
+layout: layouts/base.vto
+bodyClass: body-tag
+---
+<header class="page-header">
+  <h1 class="page-title">{{ title }}</h1>
+</header>
+
+<nav class="page-navigation">
+  <ul class="page-navigation-tags">
+  {{ for tagPage of search.pages("type=tag", "tag") }}
+    <li><a href="{{ tagPage.url }}" class="badge">{{ tagPage.tag }}</a></li>
+  {{ /for }}
+  </ul>
+</nav>
