@@ -3,7 +3,9 @@ lang: en
 logo: '<img src="/chaos_inc.png" alt="chaosgoblin.xyz" class="site-logo">'
 
 home:
-  welcome:
+  welcome: |
+    <p class="home-tagline">A neurodivergent developer thinking out loud about AI, information structure, and the places where code meets cognition.</p>
+    <p class="home-thesis">A brain wired to compulsively structure information isn't broken for data work — it's optimized for it.</p>
 
 social_links:
   - name: LinkedIn
@@ -24,8 +26,9 @@ extra_head:
 # Metas plugin https://lume.land/plugins/metas/#description
 metas:
   site: chaosgoblin.xyz
-  description:
+  description: A neurodivergent developer thinking out loud about AI, information structure, and the places where code meets cognition.
   title: "=title"
-  image: "=image"
-  twitter: "@username"
+  image: "/chaos_inc.png"
+  twitter: "@annalinnea"
   lang: en
+  generator: false
