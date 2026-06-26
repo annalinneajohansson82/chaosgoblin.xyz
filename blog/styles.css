@@ -84,7 +84,7 @@ main > :first-child {
   flex-direction: column;
   font-size: clamp(0.75rem, 2vw, 0.95rem);
   line-height: 1.3;
-  color: var(--color-dim);
+  color: var(--color-base);
   max-width: 24em;
 }
 

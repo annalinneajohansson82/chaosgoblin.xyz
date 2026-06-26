@@ -2,9 +2,11 @@ lang: en
 
 logo: '<img src="/chaos_inc.png" alt="chaosgoblin.xyz" class="site-logo">'
 
+header_tagline: 'Senior enough to know better.'
+header_tagline_sub: 'Goblin enough to do it anyway!'
+
 home:
   welcome: |
-    <p class="home-tagline">Senior enough to know better. Goblin enough to do it anyway!</p>
     <p class="home-thesis">Code, side quests, and the systems between them. A dev brain thinking out loud.</p>
 
 social_links:

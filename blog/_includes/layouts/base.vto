@@ -34,13 +34,23 @@
   </head>
   <body>
     <nav class="navbar" id="navbar">
-      <a href="/" class="navbar-home">
-        {{ if it.logo }}
-          {{ it.logo }}
-        {{ else }}
-          <strong>{{ metas.site }}</strong>
+      <div class="navbar-brand">
+        <a href="/" class="navbar-home">
+          {{ if it.logo }}
+            {{ it.logo }}
+          {{ else }}
+            <strong>{{ metas.site }}</strong>
+          {{ /if }}
+        </a>
+        {{ if it.header_tagline }}
+          <span class="header-tagline">
+            <span class="header-tagline--primary">{{ it.header_tagline }}</span>
+            {{ if it.header_tagline_sub }}
+              <span class="header-tagline--sub">{{ it.header_tagline_sub }}</span>
+            {{ /if }}
+          </span>
         {{ /if }}
-      </a>
+      </div>
 
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
