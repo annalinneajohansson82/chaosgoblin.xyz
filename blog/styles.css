@@ -41,7 +41,6 @@ main > :first-child {
   --font-body-bold: 600 clamp(1rem, 5vw, 1.125rem) / 1.6 "Google Sans Flex", sans-serif;
   --font-small: clamp(0.85rem, 4vw, 0.9rem) / 1.4 "Google Sans Flex", sans-serif;
   --font-small-bold: 600 clamp(0.85rem, 4vw, 0.9rem) / 1.4 "Google Sans Flex", sans-serif;
-  --font-extra-bold: 900;
 }
 
 /* logo ────────────────────────────────────────────────────────────────── */
@@ -55,17 +54,9 @@ main > :first-child {
   filter: invert(1);
 }
 
-/* hierarchy ───────────────────────────────────────────────────────────── */
-
-.post-title,
-.page-title {
-  font-weight: var(--font-extra-bold);
-}
-
 /* homepage thesis ─────────────────────────────────────────────────────── */
 
 .home-thesis {
-  font-weight: 900;
   font-size: clamp(1.2rem, 4vw, 1.5rem);
   max-width: 36em;
   line-height: 1.4;
@@ -77,6 +68,42 @@ main > :first-child {
   max-width: 36em;
   line-height: 1.5;
   margin: 0.5rem 0;
+}
+
+/* header tagline ──────────────────────────────────────────────────── */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.header-tagline {
+  display: inline-flex;
+  flex-direction: column;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  line-height: 1.3;
+  color: var(--color-dim);
+  max-width: 24em;
+}
+
+.header-tagline--sub {
+  font-size: 0.8em;
+}
+
+/* On very narrow screens, drop the tagline below the logo */
+@media (max-width: 480px) {
+  .navbar-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .header-tagline {
+    font-size: 0.8rem;
+    max-width: 100%;
+  }
 }
 
 /* about gallery ───────────────────────────────────────────────────────── */
