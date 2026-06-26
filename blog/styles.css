@@ -121,6 +121,13 @@ main > :first-child {
   object-fit: cover;
 }
 
+/* ───── Font Awesome nav icons ───────────────────────────────── */
+
+.nav-icon .svg-inline--fa {
+  width: 18px;
+  height: 18px;
+}
+
 /* ───── Hamburger menu ────────────────────────────────────────── */
 
 .hamburger {
