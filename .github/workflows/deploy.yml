@@ -1,0 +1,53 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: "pages-deploy"
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Build site
+        working-directory: blog
+        run: deno task build
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=chaosgoblin-xyz
+          workingDirectory: blog
+
+      - name: Notify Telegram
+        if: always()
+        env:
+          STATUS: ${{ job.status }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          if [ "$STATUS" = "success" ]; then
+            PAYLOAD='{"chat_id":"'"${{ secrets.TELEGRAM_CHAT_ID }}"'","message_thread_id":"'"${{ secrets.TELEGRAM_THREAD_ID }}"'","parse_mode":"Markdown","text":"✅ *Deploy successful* · main\n\nDeployed to [chaosgoblin.xyz](https://chaosgoblin.xyz)"}'
+          else
+            PAYLOAD='{"chat_id":"'"${{ secrets.TELEGRAM_CHAT_ID }}"'","message_thread_id":"'"${{ secrets.TELEGRAM_THREAD_ID }}"'","parse_mode":"Markdown","text":"❌ *Deploy failed* · main\n\nBuild returned `'"$STATUS"'`.\n\n[View run](https://github.com/'"$REPO"'/actions/runs/'"$RUN_ID"')"}'
+          fi
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD"

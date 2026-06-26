@@ -1,6 +1,10 @@
 # Build output
 _site/
 
+# Wrangler/Cloudflare cache
+.wrangler/
+blog/.wrangler/
+
 # Tooling/agent cruft
 .agents/
 .claude/

@@ -1,11 +1,10 @@
-# Deployment Plan: chaosgoblin.xyz
+# Deployment: chaosgoblin.xyz
 
-> Target: live at **chaosgoblin.xyz** within 1–2 days.
-> Status as of 2026-06-18: build works, no homepage, no hosting, no `_config.ts`, no CI/CD.
+> **Status (2026-06-26):** Live at **chaosgoblin.xyz**. Cloudflare Pages connected to GitHub. Auto-deploys from `main` branch on every push.
 
 ---
 
-## 0. Pre-deploy Blockers (Must Fix Before Deploying)
+## 0. Pre-deploy Blockers (Must Fix Before Deploying) — ✅ Resolved
 
 These are things that will either break the published site or produce an embarrassing first impression. Fix in order.
 
@@ -166,25 +165,19 @@ chaos_inc_white.png
 
 **Cloudflare Pages** is the clear winner: free tier is generous, custom domain + SSL is included, and the Deno build step works with a one-liner.
 
-### Cloudflare Pages Build Configuration
+### Cloudflare Pages Build Configuration (Active — set via API)
 
 | Setting | Value |
 |---|---|
 | **Framework preset** | None (static HTML) |
-| **Build command** | `curl -fsSL https://deno.land/install.sh | sh && /opt/buildhome/.deno/bin/deno task build` |
+| **Build command** | `deno task build` |
 | **Build output directory** | `_site` |
-| **Root directory** | `blog` (because the Lume project is in `blog/`) |
+| **Root directory** | `blog` (where `deno.json` and `_config.ts` live) |
 | **Production branch** | `main` |
+| **Git integration** | GitHub (`annalinneajohansson82/chaosgoblin.xyz`) |
+| **Preview deploys** | Disabled |
 
-### Alternative (if Cloudflare DNS is not an option): Netlify
-
-```toml
-# blog/netlify.toml
-[build]
-  publish = "_site"
-  command = "curl -fsSL https://deno.land/install.sh | sh && /opt/buildhome/.deno/bin/deno task build"
-  base = "blog"
-```
+> Deno is pre-installed in Cloudflare Pages build images — no need to curl-install it.
 
 ---
 
@@ -219,57 +212,13 @@ And configure the custom domain in Netlify Site settings.
 
 ---
 
-## 4. Build Pipeline
+## 4. Build Pipeline — ✅ Cloudflare Pages Native (Active)
 
-### Option A: GitHub Actions (Recommended for Cloudflare Pages)
+The GitHub repo is connected directly in Cloudflare Pages. Cloudflare handles build + deploy natively on every push to `main`.
 
-Create `.github/workflows/deploy.yml`:
+No GitHub Actions workflow needed — the native Git integration is simpler and already running.
 
-```yaml
-name: Deploy to Cloudflare Pages
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Build site
-        working-directory: blog
-        run: deno task build
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy blog/_site --project-name=chaosgoblin-xyz
-```
-
-### Option B: Cloudflare Pages Native (No GitHub Action)
-
-Connect the GitHub repo directly in Cloudflare Pages dashboard. Cloudflare handles the build + deploy natively. Simpler setup but less visibility into builds locally.
-
-**Build config in dashboard:**
-- Build command: `curl -fsSL https://deno.land/install.sh | sh && /opt/buildhome/.deno/bin/deno task build`
-- Build output: `_site`
-- Root directory: `blog`
-
-### Option C: Local Deploy Script (Manual)
-
-For emergencies or when you don't want CI:
+### Manual deploy (emergency fallback)
 
 ```bash
 # deploy.sh
@@ -279,8 +228,6 @@ cd blog
 deno task build
 npx wrangler pages deploy _site --project-name=chaosgoblin-xyz
 ```
-
-**Recommended path:** **Option B (Cloudflare Pages native)** for minimum setup complexity, **Option A (GitHub Actions)** for more control and visibility.
 
 ---
 
@@ -344,94 +291,33 @@ jobs:
 
 ---
 
-## 6. Technical Blockers Summary
+## 6. Technical Blockers Summary — ✅ All Resolved
 
-| # | Blocker | Status | Priority | Dependency |
-|---|---|---|---|---|
-| 1 | No `_config.ts` | ❌ Not created | 🔴 Must fix | Blocks 2, blocks deploy |
-| 2 | No homepage (`index.html`) | ❌ Missing from build | 🔴 Must fix | Depends on 1 |
-| 3 | favicon.png is 4.5MB | ❌ Too large | 🟡 Should fix | None |
-| 4 | No RSS/Atom feeds | ❌ Likely not generated | 🟡 Should fix | Depends on 1 |
-| 5 | `/tags/` returns 404 | ❌ Broken | 🟡 Should fix | Depends on 1 |
-| 6 | Anti-pattern files not cleaned | ❌ Untracked | 🟡 Should fix | Before deploy |
-| 7 | DNS not configured | ❌ Not set up | 🔴 Must fix | Depends on hosting choice |
-| 8 | Cloudflare Pages project | ❌ Not created | 🔴 Must fix | Depends on DNS |
-| 9 | GitHub secrets for CI | ❌ Not configured | 🟡 Should fix | Depends on pipeline choice |
-
----
-
-## 7. Execution Plan (Ordered)
-
-### Day 1 — Foundation (~2 hours)
-
-| Step | Action | Time |
+| # | Blocker | Status |
 |---|---|---|
-| 1.1 | Create `blog/_config.ts` with blog plugin + site.copy() | 10 min |
-| 1.2 | Build and verify `_site/index.html` appears | 5 min |
-| 1.3 | Resize favicon.png to 32×32 | 5 min |
-| 1.4 | Delete anti-pattern files (SCSS, UnoCSS, fonts, _cms.ts, localized includes, chaos_inc_white.png) | 15 min |
-| 1.5 | Add tooling dirs to `.gitignore` | 5 min |
-| 1.6 | Verify `/tags/` works; create `blog/tags.md` if needed | 10 min |
-| 1.7 | Delete stale branch | 1 min |
-| 1.8 | Update blog posts from AI-generated to real Anna voice (optional but recommended before public) | 2–4 hrs |
+| 1 | No `_config.ts` | ✅ Created |
+| 2 | No homepage (`index.html`) | ✅ Built |
+| 3 | favicon.png too large | ✅ Resolved (SVG favicon) |
+| 4 | No RSS/Atom feeds | ✅ Generated |
+| 5 | `/tags/` returns 404 | ✅ Resolved |
+| 6 | Anti-pattern files | ✅ Cleaned |
+| 7 | DNS not configured | ✅ Cloudflare DNS + Pages |
+| 8 | Cloudflare Pages project | ✅ Created + connected to GitHub |
+| 9 | GitHub secrets for CI | ✅ Not needed (native Git integration) |
 
-### Day 1-2 — Infrastructure (~1 hour)
+## 7. Execution Plan — ✅ Complete
 
-| Step | Action | Time |
-|---|---|---|
-| 2.1 | Create Cloudflare account if needed; add chaosgoblin.xyz to Cloudflare DNS | 15 min |
-| 2.2 | Update nameservers at registrar to Cloudflare | 10 min (DNS propagation: 1–24h) |
-| 2.3 | Create Cloudflare Pages project; connect GitHub repo | 10 min |
-| 2.4 | Configure build command + output dir in Cloudflare dashboard | 5 min |
-| 2.5 | Set custom domain in Cloudflare Pages | 5 min |
-| 2.6 | Trigger first deploy (push to main or manual) | 5 min |
-| 2.7 | Verify site is live at chaosgoblin.xyz | 5 min |
+All deployment infrastructure is live. Next deployments happen automatically on push to `main`.
 
-### Day 2 — CI/CD (~30 minutes)
+### How auto-deployment works
 
-| Step | Action | Time |
-|---|---|---|
-| 3.1 | Create Cloudflare API token with Pages write permission | 5 min |
-| 3.2 | Add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` to GitHub secrets | 5 min |
-| 3.3 | Create `.github/workflows/deploy.yml` | 10 min |
-| 3.4 | Push to main; verify CI runs and deploys | 10 min |
+1. Push to `main` on GitHub
+2. Cloudflare Pages catches the webhook
+3. Clones the repo, cd's into `blog/`
+4. Runs `deno task build` → output goes to `_site/`
+5. Deploys the built files to chaosgoblin.xyz + chaosgoblin-xyz.pages.dev
+6. Done in ~30-60 seconds
 
----
+### Rollback
 
-## 8. Post-Deploy Checklist
-
-- [ ] Visit `https://chaosgoblin.xyz` — homepage renders
-- [ ] Visit a post — `/posts/adhd-debugging-hyperfocus/` 
-- [ ] Visit `/about/`
-- [ ] Test dark mode toggle
-- [ ] Verify `/tags/Engineering/` works
-- [ ] Verify `/feed.xml` and `/feed.json` return valid content
-- [ ] Check favicon in browser tab
-- [ ] Test mobile layout (responsive nav, hamburger menu)
-- [ ] Check Lighthouse score (performance, accessibility, SEO)
-- [ ] Verify SSL certificate (auto-provisioned by Cloudflare)
-- [ ] Test `www.chaosgoblin.xyz` redirects to apex
-
----
-
-## 9. Cost Analysis
-
-| Service | Cost | Notes |
-|---|---|---|
-| Domain registration (chaosgoblin.xyz) | ~$10–15/yr | Already purchased |
-| Cloudflare Pages (free tier) | $0/mo | 500 builds/mo, unlimited bandwidth |
-| Cloudflare DNS | $0/mo | Included |
-| GitHub | $0/mo | Public repo |
-| **Total ongoing** | **<$2/mo** | Just the domain renewal |
-
----
-
-## 10. Rollback Plan
-
-If something goes wrong with a deploy:
-
-1. **Cloudflare Pages dashboard**: Go to **Deployments** → find the last working deployment → **View** → **Rollback to this deployment**
-2. **Git revert**: `git revert HEAD && git push origin main` triggers a new build of the previous state
-3. **Emergency DNS**: Point CNAME to a static S3 bucket or a simple "under maintenance" page
-
-Cloudflare Pages keeps all previous deployments; rollback is instantaneous.
+In Cloudflare dashboard → Pages → chaosgoblin-xyz → Deployments → pick a previous deployment → **Rollback**. Instant.
