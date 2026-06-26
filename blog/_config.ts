@@ -11,5 +11,6 @@ site.use(metas());
 
 site.copy("chaos_inc.png");
 site.copy("favicon.svg");
+site.copy("scripts");
 
 export default site;
